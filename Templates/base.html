@@ -1,0 +1,63 @@
+<html>
+
+{# <head><title>aiot-monitor</title></head> #}
+<head>
+	<title> {% block title %} {% endblock % } </title>
+</head>
+
+<body>
+<h1> This is AIOT monitor system </h1>
+
+{% block content %} {% endblock %}
+
+{% block footer %}
+
+<hr>
+
+Thanks for visiting mysite !!!
+
+{% endblock %}
+
+{% comment %}
+
+{% if foo1 %}
+
+	print foo1
+	
+{% endif %}
+
+{%if foo2 %}
+
+	{% if bar %}
+	
+		print bar
+		
+	{% endif %}
+	
+{% endif %}
+
+{%if foo3 %}
+
+	print foo3
+
+{% else %}
+
+	{% if bar %}
+	
+		print bar
+		
+	{% endif %}
+	
+{% endif %}
+
+<ul>
+{% for name in mylist %}
+	<li> {{ name }} </li>
+{% endfor %}
+</ul>
+
+{% endcomment %}
+
+</body>
+
+</html>
