@@ -16,17 +16,19 @@ def read_page(url):
     # req.add_header('User-Agent','fake-client')
     try:
         response = urllib2.urlopen(req)
+        raw_html_data = response.read()
+        return raw_html_data
+    except urllib2.HTTPError:
+        return None
     except urllib2.URLError as e:
         if hasattr(e, "reason"):
             print e.reason
-            return 0
+            return None
         elif hasattr(e, "code"):
             print e.code
-            return 0
-    else:
-        print 'No exception raise.\n'
-    print "The code : %s" % response.getcode()
-    rawdata = response.read()
-    print rawdata
-    return rawdata
+            return None
+    except Exception:
+        return None
+
+
 

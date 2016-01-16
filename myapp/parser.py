@@ -29,5 +29,6 @@ def get_next_link(rawdata):
     content = content.replace(ori_xml_head, new_xml_head)
     root = ET.fromstring(content)
     frame = root.attrib['gid']
+    # a=a 时 为下一主题(即该贴子日期之后的帖子)， a=b时为上一主题(即该贴子日期之前的帖子)
     next_link = 'http://bbs.fudan.edu.cn/bbs/tcon?new=1&bid=120&f=' + str(frame) + '&a=b'
     return next_link
