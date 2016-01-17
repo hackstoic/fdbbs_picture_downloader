@@ -76,7 +76,33 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Template search
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + ['django.core.context_processors.request']
+
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(os.path.join(BASE_DIR, "myapp"), 'templates'),
+)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+    ("js", os.path.join(STATIC_ROOT, 'js')),
+    ("css", os.path.join(STATIC_ROOT, 'css')),
+    ("images", os.path.join(STATIC_ROOT, 'images')),
+    ("img", os.path.join(STATIC_ROOT, 'img')),
+    ("media", os.path.join(STATIC_ROOT, 'media')),
+    ("font", os.path.join(STATIC_ROOT, 'font')),
+    ("font-awesome", os.path.join(STATIC_ROOT, 'font-awesome')),
+    ("media", os.path.join(STATIC_ROOT, 'media')),
+    ("skins", os.path.join(STATIC_ROOT, 'skins')),
+)

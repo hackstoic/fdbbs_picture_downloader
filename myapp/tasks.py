@@ -1,7 +1,7 @@
 # encoding=utf8
 import os
 import sys
-
+import re
 
 # set django env
 paths = [
@@ -19,6 +19,7 @@ from myapp import downloader, parser, urlmanager, filemanager
 class Crawler(object):
     def __init__(self, start_url):
         self.start_url = start_url
+        self.PicMgrObj = filemanager.PicMgr()
 
     def crawl(self):
         """
@@ -34,7 +35,10 @@ class Crawler(object):
         next_link = parser.get_next_link(raw_html_data)
         for pic_link in pic_links:
             print "get picture link: %s" % pic_link
-            filemanager.download_picture(pic_link)
+            self.PicMgrObj.download_picture(pic_link)
+            file_name, postfix = self.PicMgrObj.extract_pic_name(pic_link)
+            desc = "查看描述请前往：%s" % self.start_url
+            self.PicMgrObj.save_desc(file_name=file_name, desc=desc)
         urlmanager.update_url(url=next_link)
         non_visited_urls = urlmanager.get_non_visited_urls()
         while non_visited_urls:  # 只要有没被访问过的url， 就一直递归爬取下去
@@ -47,6 +51,9 @@ class Crawler(object):
 def crawl_task(start_url):
     CL = Crawler(start_url)
     CL.crawl()
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

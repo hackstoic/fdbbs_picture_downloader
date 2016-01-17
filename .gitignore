@@ -5,9 +5,7 @@
 *.db
 *.pid
 *.rdb
-*.jpg
-*.gif
-*.JPG
 .key/
 upload/
 .idea/
+static/media/

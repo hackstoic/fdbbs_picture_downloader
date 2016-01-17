@@ -21,7 +21,7 @@ os.environ["DJANGO_SETTINGS_MODULE"] = 'mysite.settings'
 # Create your tests here.
 from myapp.downloader import read_page
 from myapp.parser import get_pic_link, get_next_link
-from myapp.filemanager import download_picture
+from myapp.filemanager import PicMgr
 from myapp.db_operation import ShelveOperation
 from myapp.urlmanager import update_url, get_non_visited_urls
 from myapp.tasks import Crawler
@@ -50,7 +50,7 @@ class CrawlerExample(object):
 
     def test_download_picture(self):
         url = "http://bbs.fudan.edu.cn/upload/Single/1452601277-2498.jpg"
-        res = download_picture(url)
+        res = PicMgr().download_picture(url)
         print res
         return res
 
@@ -77,6 +77,17 @@ class CrawlerExample(object):
         CL.crawl()
         return True
 
+    def test_traverse_pictures(self):
+        res = PicMgr().traverse_pictures()
+        print res
+        return res
+
+    def test_save_desc(self):
+        name = "1452601277-2498"
+        desc = self.url
+        res = PicMgr().save_desc(name, desc)
+        return res
+
 
 def main():
     print "start"
@@ -86,10 +97,12 @@ def main():
     # C.test_get_pic_link()
     # C.test_get_next_link()
     # C.test_download_picture()
-    C.test_shelve_operation()
+    # C.test_shelve_operation()
     # C.test_update_url()
     # C.test_get_non_visited_urls()
     C.test_crawler_task()
+    # C.test_traverse_pictures()
+    # C.test_save_desc()
     return True
 
 if __name__ == "__main__":
